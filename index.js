@@ -5,8 +5,8 @@ const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const app = express();
 
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.urlencoded());
 app.use(cors());
 
 const http = require("http");
@@ -55,5 +55,5 @@ mongoose
 app.use("/api/users", userRouter);
 
 server.listen(8080, () => {
-  console.log("listening on *:8088");
+  console.log("listening on *:8080");
 });

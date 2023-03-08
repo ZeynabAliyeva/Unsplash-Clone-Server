@@ -1,6 +1,5 @@
 const { userModel } = require("../models/user");
 const nodemailer = require("nodemailer");
-var jwt = require("jsonwebtoken");
 let privateKey = "ironmaidenironmaidenironmaidenironmaiden";
 
 const transporter = nodemailer.createTransport({
@@ -18,7 +17,7 @@ const userController = {
   getAll: (req, res) => {
     userModel
       .find({ isDeleted: false })
-      .select("_id email")
+      .select("id email")
       .exec((err, docs) => {
         if (!err) res.json(docs);
         else res.status(500).json(err);
