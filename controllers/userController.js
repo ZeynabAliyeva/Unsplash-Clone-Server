@@ -26,8 +26,10 @@ const userController = {
   login: (req, res) => {
     let email = req.body.email;
     let password = req.body.password;
-    userModel.findOne({ email: email, password: password }, (err, doc) => {
-      if (!err) {
+    userModel
+      .findOne({ email: email, password: password })
+      .exec()
+      .then((doc) => {
         if (doc) {
           console.log("doc", doc);
 
@@ -35,13 +37,14 @@ const userController = {
 
           doc.confirmCode = confirmCode;
 
-          doc.save((saveErr, saveDoc) => {
-            if (!saveErr) {
+          doc
+            .save()
+            .then((saveDoc) => {
               res.json(saveDoc);
-            } else {
+            })
+            .catch((saveErr) => {
               res.status(500).json(saveErr);
-            }
-          });
+            });
 
           let mailOptions = {
             from: "aarizona3@mail.ru",
@@ -58,10 +61,10 @@ const userController = {
         } else {
           res.status(404).json({ msg: "not found" });
         }
-      } else {
+      })
+      .catch((err) => {
         res.status(500).json(err);
-      }
-    });
+      });
   },
   confirmCode: (req, res) => {
     let confirmCode = req.body.confirmCode;
