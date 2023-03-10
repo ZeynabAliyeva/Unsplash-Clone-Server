@@ -71,7 +71,6 @@ const userController = {
   confirmCode: (req, res) => {
     let confirmCode = req.body.confirmCode;
     let userId = req.body.userId;
-    console.log(req.body);
     userModel
       .findOne({ confirmCode: confirmCode, _id: userId, isDeleted: false })
       .exec()
