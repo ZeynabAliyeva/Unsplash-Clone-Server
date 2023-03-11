@@ -83,7 +83,7 @@ const userController = {
             expiresIn: "5h",
           });
 
-          res.json({ token: token });
+           res.json({ token: token });
         } else {
           res.status(404).json({ message: "not found" });
         }
