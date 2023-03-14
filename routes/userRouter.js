@@ -1,11 +1,13 @@
-const express = require("express");
-const { userController } = require("../controllers/userController");
+const express = require('express');
+const { userController } = require('../controllers/userController');
+const checkAuth = require('../utils/checkAuth');
 
 const router = express.Router();
 
-router.get("/", userController.getAll);
-router.post("/login", userController.login);
-router.post("/confirmcode", userController.confirmCode);
+router.put('/:id/avatarUrl', checkAuth, userController.UpdateAvaratUrl);
+router.post('/:userId/save-post/:postId', checkAuth, userController.savePost);
+router.get('/', userController.getAllUsers);
+router.get('/:id', userController.getUser);
+router.post('/:userId/like-post/:postId', checkAuth, userController.likes);
 
 module.exports = router;
-
